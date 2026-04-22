@@ -281,10 +281,10 @@ const p2={...pDef,x:canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width,y:
 ═══════════════════════════════════ */
 const boss={
   x:0,y:0,w:22,h:220,dy:0,
-  hp:10,maxHp:10,
-  speed:3.5,
+  hp:30,maxHp:30,
+  speed:7,
   skillTimer:0,
-  skillCd:300,  // frames between skills
+  skillCd:150,  // frames between skills
   rageMode:false,
   extraBalls:[],
   hooking:false,
@@ -292,7 +292,7 @@ const boss={
   init(){
     this.x=canvas.width-this.w-8;
     this.y=canvas.height/2-this.h/2;
-    this.hp=this.maxHp;this.dy=0;
+    this.hp=30;this.maxHp=30;this.dy=0;
     this.skillTimer=this.skillCd;
     this.rageMode=false;this.hooking=false;
     this.extraBalls=[];
@@ -493,11 +493,13 @@ function movePaddles(){
   p1.y=clamp(p1.y+p1.dy,0,canvas.height-p1.h);
 
   // P2: O/L  (O=up, L=down)
-  const p2rev=effects.p2.reversed;
-  if(keys['o']||keys['O'])p2.dy=p2rev?paddleSpeed('p2'):-paddleSpeed('p2');
-  else if(keys['l']||keys['L'])p2.dy=p2rev?-paddleSpeed('p2'):paddleSpeed('p2');
-  else p2.dy=0;
-  p2.y=clamp(p2.y+p2.dy,0,canvas.height-p2.h);
+  if(!bossMode){
+    const p2rev=effects.p2.reversed;
+    if(keys['o']||keys['O'])p2.dy=p2rev?paddleSpeed('p2'):-paddleSpeed('p2');
+    else if(keys['l']||keys['L'])p2.dy=p2rev?-paddleSpeed('p2'):paddleSpeed('p2');
+    else p2.dy=0;
+    p2.y=clamp(p2.y+p2.dy,0,canvas.height-p2.h);
+  }
 }
 
 function moveBoss(){
@@ -505,8 +507,8 @@ function moveBoss(){
   // Track ball with slight lag
   const target=ball.y-(boss.h/2);
   const diff=target-boss.y;
-  boss.dy=clamp(diff*0.06,-boss.speed,boss.speed);
-  if(boss.rageMode)boss.dy=clamp(diff*0.09,-boss.speed*1.4,boss.speed*1.4);
+  boss.dy=clamp(diff*0.12,-boss.speed,boss.speed);
+  if(boss.rageMode)boss.dy=clamp(diff*0.18,-boss.speed*1.4,boss.speed*1.4);
   boss.y=clamp(boss.y+boss.dy,0,canvas.height-boss.h);
 
   // Boss skill tick
@@ -612,13 +614,12 @@ function moveBall(){
       updateBossHp();
       if(boss.hp<=0){endGame('players');}
     }
+    // Ball exits right = boss scores
+    if(ball.x+ball.r>canvas.width){scoreBoss();return;}
     // Ball exits left = boss scores
     if(ball.x-ball.r<0){
-      // check diamond shield
-      if(pwEffects.p1.diamond||pwEffects.p2.diamond){
-        // absorb
-        if(pwEffects.p1.diamond){pwEffects.p1.diamond=false;showPwStatus('p1','');}
-        else{pwEffects.p2.diamond=false;showPwStatus('p2','');}
+      if(pwEffects.p1.diamond){
+        pwEffects.p1.diamond=false;showPwStatus('p1','');
         notify('💎 DIAMOND SHIELD ABSORBED!');
         ball.reset(false);resetPaddles();
       } else {
@@ -792,7 +793,6 @@ function draw(){
   // Paddles
   drawPaddle(p1.x,p1.y,p1.w,p1.h,custom.p1Color,custom.p1Shape,effects.p1.blinded);
   if(!bossMode)drawPaddle(p2.x,p2.y,p2.w,p2.h,custom.p2Color,custom.p2Shape,effects.p2.blinded);
-  else drawPaddle(p2.x,p2.y,p2.w,p2.h,custom.p2Color,custom.p2Shape,effects.p2.blinded);
 
   // Boss
   drawBoss();
@@ -865,7 +865,7 @@ function enterBossMode(){
   document.getElementById('ascii-right').style.display='none';
   boss.init();updateBossHp();
   // resize p2 to be on left side too (coop)
-  p2.x=SETTINGS.paddle.margin+SETTINGS.paddle.width+20;
+  p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width-boss.w-20;
   resetGame();
   notify('⚠ BOSS MODE ACTIVATED! TEAM UP!');
 }
@@ -909,7 +909,7 @@ function resetGame(){
 function resetPaddles(){
   p1.y=canvas.height/2-p1.h/2;
   if(!bossMode){p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;}
-  else{p2.y=canvas.height/2-p2.h/2;p2.x=SETTINGS.paddle.margin+SETTINGS.paddle.width+20;}
+  else{p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width-boss.w-20;}
   p1.dy=0;p2.dy=0;p1.h=SETTINGS.paddle.height;p2.h=SETTINGS.paddle.height;
 }
 
