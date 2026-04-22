@@ -616,6 +616,12 @@ function showPwStatus(player,txt){
 }
 
 function tickPowerups(){
+  // No powerups in impossible mode
+  if(impossibleMode){
+    powerups=[];
+    return;
+  }
+
   // spawn
   pwSpawnTimer++;
   if(pwSpawnTimer>=PW_SPAWN_INTERVAL && powerups.length<3){
@@ -634,8 +640,8 @@ function tickPowerups(){
     if(fx.battery>0){fx.battery--;if(fx.battery===0) showPwStatus(pl,'');}
   });
 
-  // check ball collision with powerups
-  if(ball.lastHitBy && ball.lastHitBy!=='boss'){
+  // check ball collision with powerups — only valid player owners
+  if(ball.lastHitBy==='p1'||ball.lastHitBy==='p2'){
     const owner=ball.lastHitBy;
     powerups=powerups.filter(pw=>{
       const dx=ball.x-pw.x,dy=ball.y-pw.y;
@@ -1409,6 +1415,12 @@ function enterImpossibleMode(){
     document.documentElement.style.setProperty('--court-color','#f0f4ff');
     document.documentElement.style.setProperty('--net-color','rgba(100,150,255,0.4)');
     angelBoss.init();updateAngelBossHp();
+    // Clear and hide powerups for impossible mode
+    powerups=[];pwSpawnTimer=0;
+    pwEffects.p1={diamond:false,apple:0,battery:0};pwEffects.p2={diamond:false,apple:0,battery:0};
+    document.getElementById('p1-pw-status').textContent='';
+    document.getElementById('p2-pw-status').textContent='';
+    document.getElementById('pw-legend').style.display='none';
     resetGame();
 
     // Fade back out
@@ -1435,6 +1447,7 @@ function revertToNormal(){
   document.getElementById('revert-btn').style.display='none';
   document.getElementById('boss-btn').style.display='inline-block';
   document.getElementById('impossible-btn').style.display='inline-block';
+  document.getElementById('pw-legend').style.display='flex';
   document.documentElement.style.setProperty('--court-color','#200008');
   document.documentElement.style.setProperty('--net-color','#6b0018');
   effects.p1.frozen=false;effects.p1.petrified=false;
@@ -1475,6 +1488,7 @@ function endGame(winner){
       document.getElementById('impossible-btn').style.display='inline-block';
       document.documentElement.style.setProperty('--court-color','#200008');
       document.documentElement.style.setProperty('--net-color','#6b0018');
+      document.getElementById('pw-legend').style.display='flex';
       p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
     } else {
       message.textContent='🏆 PLAYERS WIN! BOSS DEFEATED! Press SPACE to play again.';
