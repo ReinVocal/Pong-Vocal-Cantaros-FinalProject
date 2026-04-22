@@ -60,6 +60,23 @@ canvas#gameCanvas{display:block;background:var(--court-color);border:2px solid #
 #burn-restart{margin-top:24px;font-family:var(--ui-font);font-size:0.8rem;letter-spacing:3px;color:#aaa;cursor:pointer;border:1px solid #555;padding:6px 18px;border-radius:6px;background:rgba(20,0,0,0.7);}
 #burn-restart:hover{color:#fff;border-color:#ff4400;}
 @keyframes burnFlicker{0%,100%{opacity:1;}50%{opacity:0.85;}33%{filter:hue-rotate(8deg);}}
+/* ── Purge / Angelic Game Over Screen ── */
+#purge-screen{display:none;position:fixed;inset:0;background:#fff;z-index:210;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+#purge-screen.active{display:flex;}
+#purge-holy-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+#purge-content{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none;}
+#purge-top-angel{font-size:0.55rem;line-height:1.15;white-space:pre;color:#4455bb;text-shadow:0 0 18px rgba(120,150,255,0.9),0 0 40px rgba(100,140,255,0.5);animation:purgeAngelFloat 3s ease-in-out infinite;letter-spacing:0;}
+#purge-title{font-family:'Courier New',Courier,monospace;font-size:2.6rem;letter-spacing:5px;font-weight:bold;color:#3344aa;text-shadow:0 0 30px rgba(100,140,255,0.8),0 0 60px rgba(150,180,255,0.5);animation:purgeFlicker 0.18s infinite;line-height:1.2;}
+#purge-sub{font-family:'Courier New',Courier,monospace;font-size:1rem;letter-spacing:4px;color:#5566cc;text-shadow:0 0 14px rgba(120,160,255,0.7);margin-top:4px;}
+#purge-angels-row{display:flex;gap:28px;align-items:flex-end;margin:8px 0;}
+.purge-side-angel{font-size:0.42rem;line-height:1.12;white-space:pre;color:#6677dd;text-shadow:0 0 10px rgba(130,160,255,0.7);letter-spacing:0;}
+.purge-side-angel:nth-child(odd){animation:purgeAngelFloat 2.8s ease-in-out infinite;}
+.purge-side-angel:nth-child(even){animation:purgeAngelFloat 3.4s ease-in-out infinite 0.5s;}
+#purge-verse{font-family:'Courier New',Courier,monospace;font-size:0.62rem;letter-spacing:2px;color:#7788cc;opacity:0.75;margin-top:2px;font-style:italic;}
+#purge-restart{pointer-events:all;font-family:'Courier New',Courier,monospace;font-size:0.78rem;letter-spacing:3px;color:#4455bb;cursor:pointer;border:1px solid rgba(100,140,255,0.5);padding:8px 22px;border-radius:8px;background:rgba(200,220,255,0.35);margin-top:14px;transition:all 0.2s;text-shadow:0 0 8px rgba(100,140,255,0.4);}
+#purge-restart:hover{background:rgba(180,210,255,0.6);border-color:#6688ff;box-shadow:0 0 20px rgba(100,150,255,0.4);}
+@keyframes purgeFlicker{0%,100%{opacity:1;}40%{opacity:0.88;}70%{opacity:0.94;filter:brightness(1.08);}}
+@keyframes purgeAngelFloat{0%,100%{transform:translateY(0px);}50%{transform:translateY(-7px);}}
 /* Settings */
 #settings-panel{margin-top:10px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center;padding:11px 14px;border:1px solid #6b0018;border-radius:8px;background:rgba(30,0,8,0.7);max-width:920px;width:100%;}
 .setting-group{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:82px;}
@@ -315,6 +332,55 @@ function onYouTubeIframeAPIReady(){
     <div id="burn-sub" id="burn-sub-text">THEREFORE YOU BURN!</div>
     <pre id="burn-ascii"></pre>
     <button id="burn-restart" onclick="closeBurnScreen()">[ REFRESH THE PAGE TO RISE FROM ASHES ]</button>
+  </div>
+</div>
+
+<!-- Purge / Angelic Game Over Screen -->
+<div id="purge-screen">
+  <canvas id="purge-holy-canvas"></canvas>
+  <div id="purge-content">
+
+    <pre id="purge-top-angel">        .  ✦  .
+    .  ✦  ✦  ✦  .
+  ✦  /‾‾‾‾‾‾‾‾‾\  ✦
+   )(  ◉     ◉  )(
+  ✦  \  ——————  /  ✦
+    .  \_______/  .
+        |  ☩  |
+       /|     |\
+      ✦ |     | ✦
+       /       \</pre>
+
+    <div id="purge-title">ANGEL EXECUTED<br>JUSTICE</div>
+    <div id="purge-sub">✦ YOU'VE BEEN PURGED ✦</div>
+
+    <div id="purge-angels-row">
+      <pre class="purge-side-angel">    ✦
+  )))✝(((
+ (  ◉ ◉  )
+  )  ☩  (
+   |   |
+  /|   |\
+ ✦ |   | ✦</pre>
+      <pre class="purge-side-angel">  ☩ ✦ ☩
+ /‾‾‾‾‾\
+( ◉   ◉ )
+ \  ☩  /
+  |   |
+  |   |
+ / \ / \</pre>
+      <pre class="purge-side-angel">✦  ✦  ✦
+)))✝(((
+( ◉   ◉ )
+ )  ☩  (
+  |   |
+ /|   |\
+✦ |   | ✦</pre>
+    </div>
+
+    <div id="purge-verse">☩ &nbsp; "justice was served, the heavens are satisfied" &nbsp; ☩</div>
+
+    <button id="purge-restart" onclick="closePurgeScreen()">[ REFRESH THE PAGE TO BE REINCARNATED ]</button>
   </div>
 </div>
 
@@ -1050,9 +1116,12 @@ function scoreBoss(){
   state.scores.boss=(state.scores.boss||0)+1;
   triggerShake();
   const sx=canvas.width/2;
-  scorePops.push({x:sx,y:canvas.height/2,text:'BOSS +1',alpha:1,scale:1.8,vy:-0.8,color:'#ff2244'});
-  if((state.scores.boss||0)>=SETTINGS.winScore){endGame('boss');}
-  else{ball.reset(false);resetPaddles();}
+  const label=impossibleMode?'☩ ANGEL +1':'BOSS +1';
+  const col=impossibleMode?'#6688ff':'#ff2244';
+  scorePops.push({x:sx,y:canvas.height/2,text:label,alpha:1,scale:1.8,vy:-0.8,color:col});
+  if((state.scores.boss||0)>=SETTINGS.winScore){
+    endGame(impossibleMode?'angel':'boss');
+  } else {ball.reset(false);resetPaddles();}
 }
 
 function updateScorePops(){
@@ -1471,7 +1540,9 @@ function startGame(){
 function togglePause(){state.paused=!state.paused;}
 function endGame(winner){
   state.running=false;state.gameOver=true;cancelAnimationFrame(animId);draw();
-  if(winner==='boss'){
+  if(winner==='angel'){
+    showPurgeScreen();
+  } else if(winner==='boss'){
     showBurnScreen('BOTH PLAYERS','YOU BOTH GOT EATEN BY THE PONG MONSTER');
   } else if(winner==='players'){
     if(impossibleMode){
@@ -1572,6 +1643,140 @@ function closeBurnScreen(){
   effects.p1.frozen=false;effects.p1.petrified=false;
   p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
   resetGame();
+}
+
+/* ═══════════════════════════════════
+   PURGE / ANGELIC GAME OVER SCREEN
+═══════════════════════════════════ */
+let purgeAnimId=null;
+const purgeScreen=document.getElementById('purge-screen');
+const purgeHolyCanvas=document.getElementById('purge-holy-canvas');
+const purgeCtx=purgeHolyCanvas.getContext('2d');
+
+function showPurgeScreen(){
+  purgeScreen.classList.add('active');
+  purgeHolyCanvas.width=window.innerWidth;
+  purgeHolyCanvas.height=window.innerHeight;
+  // entry flash
+  purgeScreen.style.opacity='0';
+  purgeScreen.style.transition='opacity 0.6s';
+  requestAnimationFrame(()=>{purgeScreen.style.opacity='1';});
+  runPurgeAnim();
+}
+
+function closePurgeScreen(){
+  purgeScreen.style.opacity='0';
+  safeTimeout(()=>{
+    purgeScreen.classList.remove('active');
+    purgeScreen.style.opacity='1';
+    if(purgeAnimId)cancelAnimationFrame(purgeAnimId);
+    bossMode=false;impossibleMode=false;
+    document.body.classList.remove('angelic');
+    canvas.classList.remove('angelic-canvas');
+    document.getElementById('fireCanvas').style.display='block';
+    document.getElementById('holyCanvas').style.display='none';
+    document.getElementById('angel-boss-side').style.display='none';
+    document.getElementById('ascii-right').style.display='flex';
+    document.getElementById('revert-btn').style.display='none';
+    document.getElementById('boss-btn').style.display='inline-block';
+    document.getElementById('impossible-btn').style.display='inline-block';
+    document.getElementById('pw-legend').style.display='flex';
+    document.documentElement.style.setProperty('--court-color','#200008');
+    document.documentElement.style.setProperty('--net-color','#6b0018');
+    effects.p1.frozen=false;effects.p1.petrified=false;
+    p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
+    resetGame();
+  },600);
+}
+
+function runPurgeAnim(){
+  const W=purgeHolyCanvas.width,H=purgeHolyCanvas.height;
+  const t=Date.now()*0.001;
+
+  purgeCtx.clearRect(0,0,W,H);
+
+  // Background — pure white with soft blue-tint radial pulse
+  const radial=purgeCtx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.7);
+  radial.addColorStop(0,`rgba(220,228,255,${0.55+Math.sin(t*0.6)*0.12})`);
+  radial.addColorStop(0.5,`rgba(200,215,255,${0.3+Math.sin(t*0.4)*0.08})`);
+  radial.addColorStop(1,'rgba(255,255,255,0)');
+  purgeCtx.fillStyle=radial;
+  purgeCtx.fillRect(0,0,W,H);
+
+  // God rays — rotating light beams from center
+  purgeCtx.save();
+  purgeCtx.translate(W/2,H/2);
+  for(let i=0;i<12;i++){
+    const angle=t*0.18+i*(Math.PI/6);
+    const alpha=0.04+Math.sin(t*0.9+i*0.52)*0.03;
+    const rayLen=Math.max(W,H)*1.1;
+    const grad=purgeCtx.createLinearGradient(0,0,Math.cos(angle)*rayLen,Math.sin(angle)*rayLen);
+    grad.addColorStop(0,`rgba(180,200,255,${alpha*2})`);
+    grad.addColorStop(0.4,`rgba(200,215,255,${alpha})`);
+    grad.addColorStop(1,'rgba(220,230,255,0)');
+    purgeCtx.fillStyle=grad;
+    purgeCtx.beginPath();
+    purgeCtx.moveTo(0,0);
+    const spread=0.12+Math.sin(t+i)*0.04;
+    purgeCtx.lineTo(Math.cos(angle-spread)*rayLen,Math.sin(angle-spread)*rayLen);
+    purgeCtx.lineTo(Math.cos(angle+spread)*rayLen,Math.sin(angle+spread)*rayLen);
+    purgeCtx.closePath();
+    purgeCtx.fill();
+  }
+  purgeCtx.restore();
+
+  // Floating holy particles
+  purgeCtx.save();
+  for(let i=0;i<40;i++){
+    const px=W*0.1+(W*0.8)*((Math.sin(t*0.3+i*2.3)*0.5+0.5));
+    const py=H-((H*1.1)*((t*0.04+i*0.07)%1.1));
+    const r=1+Math.sin(t+i)*1;
+    const alpha=0.3+Math.sin(t*2+i)*0.25;
+    purgeCtx.beginPath();
+    purgeCtx.arc(px,py,Math.max(0.5,r),0,Math.PI*2);
+    purgeCtx.fillStyle=`rgba(180,200,255,${alpha})`;
+    purgeCtx.shadowColor='#aabbff';
+    purgeCtx.shadowBlur=10;
+    purgeCtx.fill();
+    purgeCtx.shadowBlur=0;
+  }
+  purgeCtx.restore();
+
+  // Cross sparkles at golden ratio positions
+  purgeCtx.save();
+  [[0.2,0.15],[0.8,0.15],[0.15,0.75],[0.85,0.75],[0.5,0.08],[0.5,0.92]].forEach(([rx,ry],i)=>{
+    const cx=W*rx,cy=H*ry;
+    const sz=4+Math.sin(t*1.4+i)*2.5;
+    const a=0.25+Math.sin(t*2+i*1.1)*0.18;
+    purgeCtx.globalAlpha=a;
+    purgeCtx.strokeStyle='rgba(130,160,255,0.9)';
+    purgeCtx.lineWidth=1.5;
+    purgeCtx.shadowColor='#99aaff';purgeCtx.shadowBlur=12;
+    purgeCtx.beginPath();purgeCtx.moveTo(cx,cy-sz);purgeCtx.lineTo(cx,cy+sz);purgeCtx.stroke();
+    purgeCtx.beginPath();purgeCtx.moveTo(cx-sz,cy);purgeCtx.lineTo(cx+sz,cy);purgeCtx.stroke();
+    purgeCtx.shadowBlur=0;
+  });
+  purgeCtx.globalAlpha=1;
+  purgeCtx.restore();
+
+  // Falling feathers (light streaks)
+  purgeCtx.save();
+  for(let i=0;i<8;i++){
+    const fx=W*0.05+(W*0.9)*((i/8));
+    const fy=H*((t*0.06+i*0.13)%1);
+    const alpha=0.12+Math.sin(t+i)*0.07;
+    purgeCtx.globalAlpha=alpha;
+    purgeCtx.strokeStyle='rgba(160,190,255,0.8)';
+    purgeCtx.lineWidth=1;
+    purgeCtx.beginPath();
+    purgeCtx.moveTo(fx,fy);
+    purgeCtx.bezierCurveTo(fx+6,fy+8,fx-4,fy+16,fx+2,fy+24);
+    purgeCtx.stroke();
+  }
+  purgeCtx.globalAlpha=1;
+  purgeCtx.restore();
+
+  purgeAnimId=requestAnimationFrame(runPurgeAnim);
 }
 
 // Burn screen fire sim
