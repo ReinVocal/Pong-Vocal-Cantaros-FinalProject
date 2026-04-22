@@ -117,6 +117,184 @@ canvas#gameCanvas.angelic-canvas{background:#f0f4ff!important;border-color:rgba(
 <div id="white-fade"></div>
 <div id="end-of-times"><div class="eot-text">✦ THE END OF TIMES IS COMING! ✦</div></div>
 
+<!-- GREETING SCREEN -->
+<div id="greeting-screen" style="
+  position:fixed;inset:0;z-index:999;
+  background:radial-gradient(ellipse at top,#1a0005 0%,#0a0001 70%,#000 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;font-family:'Courier New',Courier,monospace;
+">
+  <!-- Greeting fire canvas -->
+  <canvas id="greet-fire" width="900" height="120" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);image-rendering:pixelated;opacity:0.85;"></canvas>
+  <canvas id="greet-fire-top" width="900" height="120" style="position:absolute;top:0;left:50%;transform:translateX(-50%) scaleY(-1);image-rendering:pixelated;opacity:0.6;"></canvas>
+
+  <!-- Devil ASCII arts scattered -->
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+    <pre style="position:absolute;top:3%;left:1%;font-size:0.38rem;line-height:1.1;color:#ff2244;opacity:0.55;text-shadow:0 0 8px #ff0000;white-space:pre;">
+  /\  /\
+ ( >oo< )
+  \    /
+ /|\/\/|\
+/ |    | \
+  |    |
+ /|    |\
+/ /    \ \</pre>
+    <pre style="position:absolute;top:5%;right:1%;font-size:0.38rem;line-height:1.1;color:#ff3300;opacity:0.5;text-shadow:0 0 8px #ff2200;white-space:pre;">
+   /\  /\
+  (  ><  )
+   \    /
+  --|  |--
+    |  |
+   /|  |\
+  / |  | \</pre>
+    <pre style="position:absolute;top:50%;left:0%;transform:translateY(-50%);font-size:0.35rem;line-height:1.1;color:#cc0022;opacity:0.45;text-shadow:0 0 6px #ff0000;white-space:pre;">
+  )  (
+ /    \
+| >||< |
+ \    /
+  |  |
+  |  |
+ /    \</pre>
+    <pre style="position:absolute;top:50%;right:0%;transform:translateY(-50%);font-size:0.35rem;line-height:1.1;color:#cc0022;opacity:0.45;text-shadow:0 0 6px #ff0000;white-space:pre;">
+  )  (
+ /    \
+| <||> |
+ \    /
+  |  |
+  |  |
+ /    \</pre>
+    <pre style="position:absolute;bottom:18%;left:2%;font-size:0.36rem;line-height:1.1;color:#ff4422;opacity:0.5;text-shadow:0 0 7px #ff1100;white-space:pre;">
+   ^ ^
+  (o o)
+  | U |
+ /|   |\
+/ |   | \
+  || ||</pre>
+    <pre style="position:absolute;bottom:18%;right:2%;font-size:0.36rem;line-height:1.1;color:#ff4422;opacity:0.5;text-shadow:0 0 7px #ff1100;white-space:pre;">
+   ^ ^
+  (o o)
+  | U |
+ /|   |\
+/ |   | \
+  || ||</pre>
+    <pre style="position:absolute;top:18%;left:8%;font-size:0.32rem;line-height:1.1;color:#aa0011;opacity:0.4;text-shadow:0 0 5px #ff0000;white-space:pre;">
+  /^^^\
+ ( >v< )
+  \vvv/
+   |=|
+  /| |\
+ / | | \</pre>
+    <pre style="position:absolute;top:18%;right:8%;font-size:0.32rem;line-height:1.1;color:#aa0011;opacity:0.4;text-shadow:0 0 5px #ff0000;white-space:pre;">
+  /^^^\
+ ( >v< )
+  \vvv/
+   |=|
+  /| |\
+ / | | \</pre>
+    <pre style="position:absolute;top:72%;left:12%;font-size:0.3rem;line-height:1.1;color:#880011;opacity:0.35;text-shadow:0 0 4px #ff0000;white-space:pre;">
+ /\    /\
+(  \  /  )
+ >  \/  <
+  |    |
+  |    |</pre>
+    <pre style="position:absolute;top:72%;right:12%;font-size:0.3rem;line-height:1.1;color:#880011;opacity:0.35;text-shadow:0 0 4px #ff0000;white-space:pre;">
+ /\    /\
+(  \  /  )
+ >  \/  <
+  |    |
+  |    |</pre>
+  </div>
+
+  <!-- Main content -->
+  <div style="position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;">
+    <!-- Big title -->
+    <div id="greet-title" style="
+      font-size:clamp(2.2rem,6vw,4rem);
+      letter-spacing:6px;
+      font-weight:bold;
+      color:#ff2244;
+      text-shadow:0 0 30px #ff0000,0 0 60px #cc0000,0 0 100px #880000;
+      animation:greetFlicker 0.15s infinite;
+      line-height:1.2;
+    ">ARE YOU READY<br>TO PLAY?</div>
+
+    <!-- Subtitle -->
+    <div style="font-size:0.75rem;letter-spacing:3px;color:#c0a060;opacity:0.45;margin-top:-6px;">
+      Pong Game made by Vocal and Cantaros
+    </div>
+
+    <!-- Play button -->
+    <button id="greet-play-btn" onclick="startGreeting()" style="
+      margin-top:12px;
+      font-family:'Courier New',Courier,monospace;
+      font-size:1.1rem;
+      letter-spacing:4px;
+      padding:14px 44px;
+      background:linear-gradient(135deg,#5a0000,#aa0000);
+      border:2px solid #ff2244;
+      border-radius:8px;
+      color:#ff4444;
+      cursor:pointer;
+      text-shadow:0 0 10px #ff0000;
+      box-shadow:0 0 24px rgba(255,0,0,0.5),inset 0 0 20px rgba(180,0,0,0.3);
+      font-weight:bold;
+      transition:all 0.2s;
+      animation:greetBtnPulse 1.5s infinite;
+    ">🔥 PLAY 🔥</button>
+  </div>
+</div>
+
+<style>
+@keyframes greetFlicker{0%,100%{opacity:1;filter:hue-rotate(0deg);}33%{opacity:0.88;filter:hue-rotate(5deg);}66%{opacity:0.95;filter:hue-rotate(-5deg);}}
+@keyframes greetBtnPulse{0%,100%{box-shadow:0 0 24px rgba(255,0,0,0.5),inset 0 0 20px rgba(180,0,0,0.3);}50%{box-shadow:0 0 44px rgba(255,0,0,0.85),0 0 80px rgba(200,0,0,0.4),inset 0 0 20px rgba(180,0,0,0.3);}}
+#greet-play-btn:hover{background:linear-gradient(135deg,#8a0000,#dd0000);transform:scale(1.06);}
+</style>
+
+<script>
+// Greeting fire simulation
+(function initGreetFire(){
+  function makeFire(cvs,flipped){
+    const ctx=cvs.getContext('2d');
+    const W=cvs.width,H=cvs.height,COLS=120,ROWS=18;
+    const CW=W/COLS,CH=H/ROWS;
+    const grid=Array.from({length:ROWS},()=>new Uint8Array(COLS));
+    const pal=[];
+    for(let i=0;i<256;i++){
+      let r,g,b;
+      if(i<64){r=0;g=0;b=0;}else if(i<128){const t=(i-64)/63;r=Math.round(t*160);g=0;b=0;}
+      else if(i<180){const t=(i-128)/51;r=Math.round(160+t*95);g=Math.round(t*40);b=0;}
+      else if(i<220){const t=(i-180)/39;r=255;g=Math.round(40+t*140);b=0;}
+      else{const t=(i-220)/35;r=255;g=Math.round(180+t*75);b=Math.round(t*180);}
+      pal[i]=`rgb(${r},${g},${b})`;
+    }
+    function step(){
+      for(let c=0;c<COLS;c++)grid[ROWS-1][c]=Math.random()<0.65?200+(Math.random()*55|0):80+(Math.random()*80|0);
+      for(let r=0;r<ROWS-1;r++)for(let c=0;c<COLS;c++){
+        const sp=((grid[r+1][(c-1+COLS)%COLS]||0)+grid[r+1][c]+(grid[r+1][(c+1)%COLS]||0)+(grid[Math.min(r+2,ROWS-1)][c]||0))/4;
+        grid[r][c]=Math.max(0,(sp|0)-(Math.random()*20|0));
+      }
+    }
+    function drawF(){
+      ctx.clearRect(0,0,W,H);
+      for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+        const v=grid[r][c];if(v<5)continue;
+        ctx.fillStyle=pal[Math.min(v,255)];ctx.fillRect(c*CW,r*CH,CW+0.5,CH+0.5);
+      }
+    }
+    (function tick(){step();drawF();requestAnimationFrame(tick);})();
+  }
+  makeFire(document.getElementById('greet-fire'));
+  makeFire(document.getElementById('greet-fire-top'));
+})();
+
+function startGreeting(){
+  const gs=document.getElementById('greeting-screen');
+  gs.style.transition='opacity 0.7s';
+  gs.style.opacity='0';
+  setTimeout(()=>{gs.style.display='none';},700);
+}
+</script>
+
 <div id="ability-notify"></div>
 
 <!-- YouTube background music -->
@@ -491,16 +669,16 @@ function drawPowerups(){
    ABILITY SYSTEM
 ═══════════════════════════════════ */
 const ABILITY_DEFS={
-  rect:{name:'BRAKE',cooldown:240,desc:'Slows ball 50% for 2s',use(o){const spd=Math.hypot(ball.vx,ball.vy);ball.vx*=0.5;ball.vy*=0.5;notify(o+': BRAKE!');setTimeout(()=>{const s=Math.hypot(ball.vx,ball.vy);if(s<SETTINGS.ball.startSpeed){const a=Math.atan2(ball.vy,ball.vx);ball.vx=Math.cos(a)*SETTINGS.ball.startSpeed;ball.vy=Math.sin(a)*SETTINGS.ball.startSpeed;}},2200);}},
-  pill:{name:'HEAL',cooldown:300,desc:'Grow paddle +30px 3s',use(o){const pad=o==='p1'?p1:p2;pad.h=Math.min(180,pad.h+30);notify(o+': HEAL!');setTimeout(()=>{pad.h=SETTINGS.paddle.height;},3000);}},
+  rect:{name:'BRAKE',cooldown:240,desc:'Slows ball 50% for 2s',use(o){const spd=Math.hypot(ball.vx,ball.vy);ball.vx*=0.5;ball.vy*=0.5;notify(o+': BRAKE!');safeTimeout(()=>{const s=Math.hypot(ball.vx,ball.vy);if(s<SETTINGS.ball.startSpeed){const a=Math.atan2(ball.vy,ball.vx);ball.vx=Math.cos(a)*SETTINGS.ball.startSpeed;ball.vy=Math.sin(a)*SETTINGS.ball.startSpeed;}},2200);}},
+  pill:{name:'HEAL',cooldown:300,desc:'Grow paddle +30px 3s',use(o){const pad=o==='p1'?p1:p2;pad.h=Math.min(180,pad.h+30);notify(o+': HEAL!');safeTimeout(()=>{pad.h=SETTINGS.paddle.height;},3000);}},
   diamond:{name:'SPIKE',cooldown:220,desc:'Next hit = speed burst',use(o){effects[o].spikeNext=true;notify(o+': SPIKE ready!');}},
-  bone:{name:'SPLIT',cooldown:360,desc:'Flip opponent controls 1.5s',use(o){const op=o==='p1'?'p2':'p1';effects[op].reversed=true;notify(o+': SPLIT — controls flipped!');setTimeout(()=>{effects[op].reversed=false;},1500);}},
-  wave:{name:'CURVE',cooldown:260,desc:'Add spin to ball 2s',use(o){effects.waveSpin=o==='p1'?3:-3;notify(o+': CURVE!');setTimeout(()=>{effects.waveSpin=0;},2000);}},
-  claw:{name:'GRAB',cooldown:280,desc:'Freeze ball 0.6s then launch',use(o){if(effects.grabbed)return;effects.grabbed=true;const svx=ball.vx,svy=ball.vy;ball.vx=0;ball.vy=0;notify(o+': GRAB!');setTimeout(()=>{effects.grabbed=false;const spd=Math.min(Math.hypot(svx,svy)*1.25,SETTINGS.ball.maxSpeed);const a=Math.atan2(svy,svx);ball.vx=Math.cos(a)*spd;ball.vy=Math.sin(a)*spd;},600);}},
+  bone:{name:'SPLIT',cooldown:360,desc:'Flip opponent controls 1.5s',use(o){const op=o==='p1'?'p2':'p1';effects[op].reversed=true;notify(o+': SPLIT — controls flipped!');safeTimeout(()=>{effects[op].reversed=false;},1500);}},
+  wave:{name:'CURVE',cooldown:260,desc:'Add spin to ball 2s',use(o){effects.waveSpin=o==='p1'?3:-3;notify(o+': CURVE!');safeTimeout(()=>{effects.waveSpin=0;},2000);}},
+  claw:{name:'GRAB',cooldown:280,desc:'Freeze ball 0.6s then launch',use(o){if(effects.grabbed)return;effects.grabbed=true;const svx=ball.vx,svy=ball.vy;ball.vx=0;ball.vy=0;notify(o+': GRAB!');safeTimeout(()=>{effects.grabbed=false;const spd=Math.min(Math.hypot(svx,svy)*1.25,SETTINGS.ball.maxSpeed);const a=Math.atan2(svy,svx);ball.vx=Math.cos(a)*spd;ball.vy=Math.sin(a)*spd;},600);}},
   shield:{name:'REFLECT',cooldown:300,desc:'Next hit = perfect reflect',use(o){effects[o].shieldNext=true;notify(o+': SHIELD armed!');}},
   spike:{name:'BURST',cooldown:200,desc:'Ball +3 speed 1.5s',use(o){const spd=Math.min(Math.hypot(ball.vx,ball.vy)+3,SETTINGS.ball.maxSpeed);const a=Math.atan2(ball.vy,ball.vx);ball.vx=Math.cos(a)*spd;ball.vy=Math.sin(a)*spd;notify(o+': BURST!');}},
-  ghost:{name:'BLIND',cooldown:380,desc:"Dim opponent's side 2s",use(o){const op=o==='p1'?'p2':'p1';effects[op].blinded=true;notify(o+': BLIND!');setTimeout(()=>{effects[op].blinded=false;},2000);}},
-  magnet:{name:'PULL',cooldown:320,desc:'Ball pulls toward you 1.5s',use(o){effects.magnetOwner=o;notify(o+': MAGNET!');setTimeout(()=>{if(effects.magnetOwner===o)effects.magnetOwner=null;},1500);}},
+  ghost:{name:'BLIND',cooldown:380,desc:"Dim opponent's side 2s",use(o){const op=o==='p1'?'p2':'p1';effects[op].blinded=true;notify(o+': BLIND!');safeTimeout(()=>{effects[op].blinded=false;},2000);}},
+  magnet:{name:'PULL',cooldown:320,desc:'Ball pulls toward you 1.5s',use(o){effects.magnetOwner=o;notify(o+': MAGNET!');safeTimeout(()=>{if(effects.magnetOwner===o)effects.magnetOwner=null;},1500);}},
 };
 
 const effects={
@@ -628,7 +806,7 @@ function activateBossSkill(){
     boss.hooking=true;boss.hookTimer=50;
     const savedVx=ball.vx,savedVy=ball.vy;
     ball.vx=0;ball.vy=0;
-    setTimeout(()=>{
+    safeTimeout(()=>{
       boss.hooking=false;
       const spd=Math.min(Math.hypot(savedVx,savedVy)*2,SETTINGS.ball.maxSpeed);
       ball.vx=-Math.abs(savedVx)/Math.abs(savedVx||1)*spd;
@@ -652,7 +830,7 @@ function activateBossSkill(){
     triggerShake();
     boss.rageMode=true;
     ball.wobble=120;
-    setTimeout(()=>{boss.rageMode=false;},3000);
+    safeTimeout(()=>{boss.rageMode=false;},3000);
   } else {
     // SPEED SERVE — hit ball back 2x
     notify('⚠ BOSS: SPEED SERVE!');
@@ -707,7 +885,7 @@ function activateAngelSkill(){
     notify('☩ ANGEL: HOLY FREEZE! You are immobilized!');
     effects.p1.frozen=true;
     triggerShake();
-    setTimeout(()=>{effects.p1.frozen=false;notify('❄ Freeze lifted!');},1200);
+    safeTimeout(()=>{effects.p1.frozen=false;notify('❄ Freeze lifted!');},1200);
   } else if(roll<0.5){
     // SKILL 2: SPEED BOOST — angel boss 1.8x speed for 3s + electrify glow
     notify('☩ ANGEL: DIVINE SURGE! Angelic speed!');
@@ -734,7 +912,7 @@ function activateAngelSkill(){
     angelBoss.petrifying=true;
     triggerShake();
     effects.p1.petrified=true;
-    setTimeout(()=>{
+    safeTimeout(()=>{
       angelBoss.petrifying=false;
       effects.p1.petrified=false;
       notify('✦ Petrify lifted!');
@@ -1174,6 +1352,16 @@ function drawEffectIndicators(){
    GAME LOOP
 ═══════════════════════════════════ */
 let animId=null;
+/* Track stale effect timeouts so they can be cancelled on reset */
+const effectTimeouts=[];
+function safeTimeout(fn,ms){
+  const id=setTimeout(fn,ms);
+  effectTimeouts.push(id);
+  return id;
+}
+function clearEffectTimeouts(){
+  while(effectTimeouts.length>0)clearTimeout(effectTimeouts.pop());
+}
 function loop(){
   if(!state.paused){
     movePaddles();moveBall();moveBoss();moveAngelBoss();
@@ -1258,6 +1446,8 @@ function revertToNormal(){
    GAME CONTROL
 ═══════════════════════════════════ */
 function startGame(){
+  cancelAnimationFrame(animId);animId=null;
+  clearEffectTimeouts();
   state.running=true;state.paused=false;state.gameOver=false;
   message.textContent='';
   effects.p1={spikeNext:false,shieldNext:false,reversed:false,blinded:false,frozen:false,petrified:false};
@@ -1299,7 +1489,9 @@ function endGame(winner){
   }
 }
 function resetGame(){
-  cancelAnimationFrame(animId);state.scores={p1:0,p2:0,boss:0};
+  cancelAnimationFrame(animId);animId=null;
+  clearEffectTimeouts();
+  state.scores={p1:0,p2:0,boss:0};
   state.gameOver=false;state.paused=false;
   abCd.p1={current:0,max:1};abCd.p2={current:0,max:1};
   scorePops.length=0;powerups=[];pwSpawnTimer=0;pwEffects.p1={diamond:false,apple:0,battery:0};pwEffects.p2={diamond:false,apple:0,battery:0};
