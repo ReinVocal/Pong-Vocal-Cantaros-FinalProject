@@ -71,6 +71,41 @@ canvas#gameCanvas{display:block;background:var(--court-color);border:2px solid #
 /* Boss mode button */
 #boss-btn{margin-top:10px;font-family:var(--ui-font);font-size:0.9rem;letter-spacing:3px;padding:10px 28px;background:linear-gradient(135deg,#5a0000,#900000);border:2px solid #ff2244;border-radius:8px;color:#ff4444;cursor:pointer;text-shadow:0 0 8px #ff0000;box-shadow:0 0 18px rgba(255,0,0,0.3);transition:all 0.2s;font-weight:bold;}
 #boss-btn:hover{background:linear-gradient(135deg,#8a0000,#cc0000);box-shadow:0 0 30px rgba(255,0,0,0.5);transform:scale(1.03);}
+/* Impossible mode button */
+#impossible-btn{margin-top:8px;font-family:var(--ui-font);font-size:0.9rem;letter-spacing:3px;padding:10px 28px;background:linear-gradient(135deg,#c8c8c8,#ffffff,#e8e8ff,#ffffff,#c8c8c8);border:3px solid #fff;border-radius:8px;color:#333;cursor:pointer;text-shadow:0 0 8px rgba(255,255,255,0.9),0 0 2px #aaa;box-shadow:0 0 20px rgba(255,255,255,0.6),0 0 40px rgba(200,200,255,0.3),inset 0 1px 0 rgba(255,255,255,0.8);transition:all 0.2s;font-weight:bold;position:relative;}
+#impossible-btn:hover{box-shadow:0 0 35px rgba(255,255,255,0.9),0 0 60px rgba(200,200,255,0.6);transform:scale(1.03);}
+#impossible-btn .wings{font-size:1.2rem;margin:0 4px;}
+/* Revert button */
+#revert-btn{display:none;margin-top:8px;font-family:var(--ui-font);font-size:0.75rem;letter-spacing:2px;padding:7px 18px;background:rgba(200,200,255,0.1);border:1px solid rgba(255,255,255,0.4);border-radius:6px;color:rgba(255,255,255,0.7);cursor:pointer;transition:all 0.2s;}
+#revert-btn:hover{background:rgba(200,200,255,0.2);color:#fff;}
+/* Impossible arena theme */
+body.angelic{background:radial-gradient(ellipse at top,#e8f0ff 0%,#c0d0ff 40%,#f0f4ff 100%)!important;}
+body.angelic h1{color:#4466cc;text-shadow:0 0 18px rgba(100,150,255,0.8);}
+body.angelic #controls{color:#334;}
+body.angelic #controls strong{color:#4466cc;}
+body.angelic #settings-panel{border-color:rgba(100,150,255,0.4);background:rgba(220,230,255,0.5);}
+body.angelic .setting-group label{color:#334;}
+body.angelic .setting-group select{background:#dde8ff;color:#334;border-color:rgba(100,150,255,0.4);}
+body.angelic .ability-badge{border-color:rgba(100,150,255,0.4);background:rgba(220,230,255,0.6);color:#334;}
+body.angelic .ability-badge .ab-name{color:#4466cc;}
+body.angelic .ability-badge .ab-bar{background:rgba(100,150,255,0.2);}
+body.angelic .ability-badge .ab-fill{background:#6688ff;}
+body.angelic .ascii-player{color:#4466cc;text-shadow:0 0 8px rgba(100,150,255,0.6);}
+canvas#gameCanvas.angelic-canvas{background:#f0f4ff!important;border-color:rgba(100,150,255,0.5)!important;box-shadow:0 0 40px rgba(150,180,255,0.5),0 0 80px rgba(100,150,255,0.2)!important;}
+/* Angel boss side */
+#angel-boss-side{display:none;flex-direction:column;align-items:center;justify-content:center;user-select:none;flex-shrink:0;width:130px;}
+#angel-boss-ascii{font-size:0.48rem;line-height:1.1;white-space:pre;color:#4466cc;text-shadow:0 0 8px rgba(100,150,255,0.8);transition:transform 0.08s ease;letter-spacing:0;animation:holyGlow 2s infinite;}
+#angel-boss-label{font-size:0.6rem;letter-spacing:2px;color:#6688ff;margin-top:4px;text-shadow:0 0 8px rgba(100,150,255,0.8);}
+#angel-boss-hp-bar{width:100px;height:6px;background:rgba(100,150,255,0.2);border:1px solid #6688ff;border-radius:3px;margin-top:4px;overflow:hidden;}
+#angel-boss-hp-fill{height:100%;background:linear-gradient(90deg,#aabbff,#ffffff);border-radius:3px;transition:width 0.3s;}
+/* Holy light canvas */
+#holyCanvas{display:none;margin:0 auto;image-rendering:pixelated;}
+/* White fade overlay */
+#white-fade{position:fixed;inset:0;background:#fff;pointer-events:none;z-index:150;opacity:0;transition:opacity 0.8s;}
+/* End of times announce */
+#end-of-times{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:160;pointer-events:none;opacity:0;text-align:center;transition:opacity 0.6s;}
+#end-of-times .eot-text{font-family:var(--ui-font);font-size:2.4rem;letter-spacing:6px;font-weight:bold;background:linear-gradient(135deg,#c0c8ff,#ffffff,#e8eaff,#ffffff,#c0c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(200,210,255,0.9)) drop-shadow(0 0 40px rgba(150,180,255,0.7));white-space:nowrap;}
+@keyframes holyGlow{0%,100%{text-shadow:0 0 12px rgba(200,210,255,0.8),0 0 24px rgba(150,180,255,0.5);}50%{text-shadow:0 0 20px rgba(200,210,255,1),0 0 40px rgba(150,180,255,0.8),0 0 60px rgba(100,150,255,0.4);}}
 /* Powerup tooltip */
 #pw-legend{display:flex;gap:14px;margin-top:7px;font-size:0.58rem;opacity:0.6;flex-wrap:wrap;justify-content:center;}
 .pw-item{display:flex;align-items:center;gap:4px;}
@@ -78,6 +113,9 @@ canvas#gameCanvas{display:block;background:var(--court-color);border:2px solid #
 </style>
 </head>
 <body>
+
+<div id="white-fade"></div>
+<div id="end-of-times"><div class="eot-text">✦ THE END OF TIMES IS COMING! ✦</div></div>
 
 <div id="ability-notify"></div>
 
@@ -98,7 +136,7 @@ function onYouTubeIframeAPIReady(){
     <div id="burn-title">YOU LOST</div>
     <div id="burn-sub" id="burn-sub-text">THEREFORE YOU BURN!</div>
     <pre id="burn-ascii"></pre>
-    <button id="burn-restart" onclick="closeBurnScreen()">[ PRESS TO RISE FROM ASHES ]</button>
+    <button id="burn-restart" onclick="closeBurnScreen()">[ REFRESH THE PAGE TO RISE FROM ASHES ]</button>
   </div>
 </div>
 
@@ -174,9 +212,26 @@ function onYouTubeIframeAPIReady(){
     <div id="boss-label">⚠ BOSS ⚠</div>
     <div id="boss-hp-bar"><div id="boss-hp-fill" style="width:100%"></div></div>
   </div>
+
+  <!-- Angel Boss side (hidden unless impossible mode) -->
+  <div id="angel-boss-side">
+    <pre id="angel-boss-ascii">  ✦✦✦✦✦
+ )))✝(((
+✦(  ◉◉  )✦
+ )))✝(((
+  |ANGEL|
+  |BOSS |
+  |☩☩☩☩|
+   \___/
+   |   |
+  /|   |\</pre>
+    <div id="angel-boss-label">☩ ANGEL BOSS ☩</div>
+    <div id="angel-boss-hp-bar"><div id="angel-boss-hp-fill" style="width:100%"></div></div>
+  </div>
 </div>
 
 <canvas id="fireCanvas" width="800" height="80"></canvas>
+<canvas id="holyCanvas" width="800" height="80"></canvas>
 <div id="message">Press SPACE to start</div>
 
 <div id="pw-legend">
@@ -224,6 +279,8 @@ function onYouTubeIframeAPIReady(){
 </div>
 
 <button id="boss-btn" onclick="enterBossMode()">⚠ ENTER BOSS MODE ⚠</button>
+<button id="impossible-btn" onclick="enterImpossibleMode()"><span class="wings">🪽</span> IMPOSSIBLE PONG <span class="wings">🪽</span></button>
+<button id="revert-btn" onclick="revertToNormal()">↩ RETURN TO NORMAL</button>
 <div id="collab-proof">Collaborator Exercise Complete: Rein Alexander A. Vocal &amp; Rich Andrei Cantaros</div>
 
 <script>
@@ -250,6 +307,7 @@ canvas.width=SETTINGS.canvas.width; canvas.height=SETTINGS.canvas.height;
 
 /* ── Game mode ── */
 let bossMode=false;
+let impossibleMode=false;
 
 /* ── Game state ── */
 const state={running:false,paused:false,gameOver:false,scores:{p1:0,p2:0}};
@@ -302,6 +360,32 @@ const boss={
 
 /* ── Boss extra balls ── */
 // Each: {x,y,vx,vy,r,fire}
+
+/* ═══════════════════════════════════
+   ANGEL BOSS
+═══════════════════════════════════ */
+const angelBoss={
+  x:0,y:0,w:22,h:220*1,dy:0,
+  hp:90,maxHp:90,
+  speed:10.5,
+  skillTimer:0,
+  skillCd:120,
+  rageMode:false,
+  miniBalls:[],  // baby angel paddles
+  hooking:false,
+  petrifying:false,
+  speedBoostTimer:0,
+  electrifyTimer:0,
+  init(){
+    this.x=canvas.width-this.w-8;
+    this.y=canvas.height/2-this.h/2;
+    this.hp=90;this.maxHp=90;this.dy=0;
+    this.skillTimer=this.skillCd;
+    this.rageMode=false;this.hooking=false;this.petrifying=false;
+    this.miniBalls=[];this.speedBoostTimer=0;this.electrifyTimer=0;
+  },
+  get color(){return this.rageMode?'#99aaff':'#aabbff';}
+};
 
 /* ═══════════════════════════════════
    POWERUP SYSTEM
@@ -420,8 +504,8 @@ const ABILITY_DEFS={
 };
 
 const effects={
-  p1:{spikeNext:false,shieldNext:false,reversed:false,blinded:false},
-  p2:{spikeNext:false,shieldNext:false,reversed:false,blinded:false},
+  p1:{spikeNext:false,shieldNext:false,reversed:false,blinded:false,frozen:false,petrified:false},
+  p2:{spikeNext:false,shieldNext:false,reversed:false,blinded:false,frozen:false,petrified:false},
   waveSpin:0,grabbed:false,magnetOwner:null,
 };
 
@@ -487,9 +571,11 @@ function paddleSpeed(pl){
 function movePaddles(){
   // P1: W/S
   const p1rev=effects.p1.reversed;
-  if(keys['w']||keys['W'])p1.dy=p1rev?paddleSpeed('p1'):-paddleSpeed('p1');
-  else if(keys['s']||keys['S'])p1.dy=p1rev?-paddleSpeed('p1'):paddleSpeed('p1');
-  else p1.dy=0;
+  if(!effects.p1.frozen && !effects.p1.petrified){
+    if(keys['w']||keys['W'])p1.dy=p1rev?paddleSpeed('p1'):-paddleSpeed('p1');
+    else if(keys['s']||keys['S'])p1.dy=p1rev?-paddleSpeed('p1'):paddleSpeed('p1');
+    else p1.dy=0;
+  } else { p1.dy=0; }
   p1.y=clamp(p1.y+p1.dy,0,canvas.height-p1.h);
 
   // P2: O/L  (O=up, L=down)
@@ -576,6 +662,86 @@ function activateBossSkill(){
   }
 }
 
+/* ═══════════════════════════════════
+   ANGEL BOSS MOVEMENT + SKILLS
+═══════════════════════════════════ */
+function moveAngelBoss(){
+  if(!impossibleMode)return;
+  const spd=angelBoss.speedBoostTimer>0?angelBoss.speed*1.8:angelBoss.speed;
+  const target=ball.y-(angelBoss.h/2);
+  const diff=target-angelBoss.y;
+  angelBoss.dy=clamp(diff*0.18,-spd,spd);
+  if(angelBoss.rageMode)angelBoss.dy=clamp(diff*0.26,-spd*1.5,spd*1.5);
+  angelBoss.y=clamp(angelBoss.y+angelBoss.dy,0,canvas.height-angelBoss.h);
+
+  if(angelBoss.speedBoostTimer>0)angelBoss.speedBoostTimer--;
+  if(angelBoss.electrifyTimer>0)angelBoss.electrifyTimer--;
+
+  // Skill tick
+  angelBoss.skillTimer--;
+  if(angelBoss.skillTimer<=0){
+    activateAngelSkill();
+    angelBoss.skillTimer=angelBoss.rageMode?80:angelBoss.skillCd;
+  }
+
+  // Move mini angel balls
+  angelBoss.miniBalls.forEach(b=>{
+    b.life--;
+    b.x+=b.vx;b.y+=b.vy;
+    if(b.y-b.r<=0){b.y=b.r;b.vy=Math.abs(b.vy);}
+    if(b.y+b.r>=canvas.height){b.y=canvas.height-b.r;b.vy=-Math.abs(b.vy);}
+    if(b.x-b.r<=p1.x+p1.w&&b.x+b.r>=p1.x&&b.y>=p1.y&&b.y<=p1.y+p1.h){
+      b.x=p1.x+p1.w+b.r;b.vx=Math.abs(b.vx);
+    }
+    if(b.x-b.r<0)b.life=0;
+    if(b.x+b.r>canvas.width){b.vx=-Math.abs(b.vx);}
+  });
+  angelBoss.miniBalls=angelBoss.miniBalls.filter(b=>b.life>0);
+}
+
+function activateAngelSkill(){
+  const roll=Math.random();
+  if(roll<0.25){
+    // SKILL 1: FREEZE — freeze player paddle 1.2s
+    if(effects.p1.frozen||effects.p1.petrified)return;
+    notify('☩ ANGEL: HOLY FREEZE! You are immobilized!');
+    effects.p1.frozen=true;
+    triggerShake();
+    setTimeout(()=>{effects.p1.frozen=false;notify('❄ Freeze lifted!');},1200);
+  } else if(roll<0.5){
+    // SKILL 2: SPEED BOOST — angel boss 1.8x speed for 3s + electrify glow
+    notify('☩ ANGEL: DIVINE SURGE! Angelic speed!');
+    angelBoss.speedBoostTimer=180;
+    angelBoss.electrifyTimer=180;
+  } else if(roll<0.75){
+    // SKILL 3: SPAWN 2 baby angel paddles for 3s
+    notify('☩ ANGEL: SERAPHIM GUARD! Babies descend!');
+    for(let i=0;i<2;i++){
+      const angle=(Math.random()*40-20)*(Math.PI/180);
+      const spd=5+Math.random()*3;
+      angelBoss.miniBalls.push({
+        x:angelBoss.x-10,
+        y:angelBoss.y+angelBoss.h*0.3+i*angelBoss.h*0.4,
+        vx:-spd*Math.cos(angle),
+        vy:(i===0?-1:1)*spd*Math.sin(Math.abs(angle)+0.3),
+        r:9,life:180,angel:true,
+      });
+    }
+  } else {
+    // SKILL 4: ANGELIC BEAM — petrifies player 5s if ball on left half
+    if(effects.p1.petrified||effects.p1.frozen)return;
+    notify('☩ ANGEL: DIVINE BEAM! PETRIFIED for 5 seconds!');
+    angelBoss.petrifying=true;
+    triggerShake();
+    effects.p1.petrified=true;
+    setTimeout(()=>{
+      angelBoss.petrifying=false;
+      effects.p1.petrified=false;
+      notify('✦ Petrify lifted!');
+    },5000);
+  }
+}
+
 function moveBall(){
   if(effects.grabbed||boss.hooking)return;
 
@@ -626,6 +792,22 @@ function moveBall(){
         scoreBoss();
       }
     }
+  } else if(impossibleMode){
+    // Angel boss collision
+    if(ball.x+ball.r>=angelBoss.x&&ball.x-ball.r<=angelBoss.x+angelBoss.w&&ball.y>=angelBoss.y&&ball.y<=angelBoss.y+angelBoss.h){
+      ball.x=angelBoss.x-ball.r;ball.lastHitBy='angel';bounceBallOff(angelBoss,-1,null);
+      angelBoss.hp--;
+      updateAngelBossHp();
+      if(angelBoss.hp<=0){endGame('players');}
+    }
+    if(ball.x+ball.r>canvas.width){scoreBoss();return;}
+    if(ball.x-ball.r<0){
+      if(pwEffects.p1.diamond){
+        pwEffects.p1.diamond=false;showPwStatus('p1','');
+        notify('💎 DIAMOND SHIELD!');
+        ball.reset(false);resetPaddles();
+      } else { scoreBoss(); }
+    }
   } else {
     // P2 collision
     if(ball.x+ball.r>=p2.x&&ball.x-ball.r<=p2.x+p2.w&&ball.y>=p2.y&&ball.y<=p2.y+p2.h){
@@ -649,6 +831,12 @@ function updateBossHp(){
   const ratio=Math.max(0,boss.hp/boss.maxHp);
   document.getElementById('boss-hp-fill').style.width=(ratio*100)+'%';
   if(ratio<0.4)boss.rageMode=true;
+}
+
+function updateAngelBossHp(){
+  const ratio=Math.max(0,angelBoss.hp/angelBoss.maxHp);
+  document.getElementById('angel-boss-hp-fill').style.width=(ratio*100)+'%';
+  if(ratio<0.4)angelBoss.rageMode=true;
 }
 
 /* ═══════════════════════════════════
@@ -735,21 +923,142 @@ function drawBoss(){
   });
 }
 
+function drawAngelBoss(){
+  if(!impossibleMode)return;
+  const t=Date.now()*0.003;
+  const glow=angelBoss.electrifyTimer>0?30:14;
+
+  // Wing shapes on the sides of paddle
+  const wx=angelBoss.x,wy=angelBoss.y,ww=angelBoss.w,wh=angelBoss.h;
+  // Left wing
+  ctx.save();
+  ctx.globalAlpha=0.5+Math.sin(t*2)*0.15;
+  ctx.fillStyle='rgba(200,210,255,0.35)';
+  ctx.shadowColor='#aabbff';ctx.shadowBlur=18;
+  ctx.beginPath();
+  ctx.moveTo(wx,wy+wh*0.2);
+  ctx.bezierCurveTo(wx-30,wy,wx-50,wy+wh*0.15,wx-35,wy+wh*0.5);
+  ctx.bezierCurveTo(wx-50,wy+wh*0.85,wx-30,wy+wh,wx,wy+wh*0.8);
+  ctx.closePath();ctx.fill();
+  // Right wing (mirror)
+  ctx.beginPath();
+  ctx.moveTo(wx+ww,wy+wh*0.2);
+  ctx.bezierCurveTo(wx+ww+30,wy,wx+ww+50,wy+wh*0.15,wx+ww+35,wy+wh*0.5);
+  ctx.bezierCurveTo(wx+ww+50,wy+wh*0.85,wx+ww+30,wy+wh,wx+ww,wy+wh*0.8);
+  ctx.closePath();ctx.fill();
+  ctx.restore();
+
+  // Main paddle body
+  ctx.fillStyle=angelBoss.color;
+  ctx.shadowColor='#aabbff';ctx.shadowBlur=glow;
+  const grad=ctx.createLinearGradient(wx,wy,wx+ww,wy+wh);
+  grad.addColorStop(0,'#ddeeff');grad.addColorStop(0.5,'#ffffff');grad.addColorStop(1,'#c0d0ff');
+  ctx.fillStyle=grad;
+  ctx.beginPath();ctx.roundRect(wx,wy,ww,wh,6);ctx.fill();
+
+  // Electrify effect
+  if(angelBoss.electrifyTimer>0){
+    ctx.save();
+    ctx.strokeStyle=`rgba(180,200,255,${0.6+Math.sin(t*8)*0.4})`;
+    ctx.lineWidth=2;ctx.shadowColor='#88aaff';ctx.shadowBlur=20;
+    for(let i=0;i<4;i++){
+      const ex=wx+(i%2===0?-15:ww+15);
+      const ey=wy+wh*0.2+i*(wh*0.2);
+      ctx.beginPath();ctx.moveTo(wx+ww/2,wy+wh/2);
+      ctx.lineTo(ex+Math.sin(t*5+i)*8,ey+Math.cos(t*4+i)*8);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Holy crosses on paddle
+  ctx.fillStyle='rgba(100,150,255,0.5)';ctx.shadowBlur=0;
+  for(let i=0;i<3;i++){
+    const cy=wy+wh*0.2+i*(wh*0.3);
+    ctx.fillRect(wx+ww/2-1,cy-6,2,12);
+    ctx.fillRect(wx+ww/2-5,cy-1,10,2);
+  }
+  ctx.shadowBlur=0;
+
+  // Petrify beam
+  if(angelBoss.petrifying){
+    ctx.save();
+    ctx.globalAlpha=0.6+Math.sin(t*10)*0.3;
+    const beamGrad=ctx.createLinearGradient(wx,0,0,0);
+    beamGrad.addColorStop(0,'rgba(200,220,255,0.9)');
+    beamGrad.addColorStop(1,'rgba(200,220,255,0)');
+    ctx.fillStyle=beamGrad;
+    ctx.fillRect(0,0,wx,canvas.height);
+    ctx.restore();
+  }
+
+  // Freeze indicator
+  if(effects.p1.frozen){
+    ctx.save();ctx.globalAlpha=0.5+Math.sin(t*6)*0.3;
+    ctx.strokeStyle='#aaddff';ctx.lineWidth=3;ctx.shadowColor='#88ccff';ctx.shadowBlur=15;
+    ctx.beginPath();ctx.roundRect(p1.x-5,p1.y-5,p1.w+10,p1.h+10,6);ctx.stroke();
+    ctx.fillStyle='rgba(150,220,255,0.15)';ctx.fill();
+    ctx.restore();
+  }
+
+  // Petrify indicator on player paddle
+  if(effects.p1.petrified){
+    ctx.save();ctx.globalAlpha=0.7;
+    ctx.fillStyle='rgba(200,210,255,0.4)';
+    ctx.shadowColor='#aabbff';ctx.shadowBlur=12;
+    ctx.beginPath();ctx.roundRect(p1.x-3,p1.y-3,p1.w+6,p1.h+6,6);ctx.fill();
+    ctx.restore();
+  }
+
+  // Baby angel mini-balls
+  angelBoss.miniBalls.forEach(b=>{
+    const lifeRatio=b.life/180;
+    ctx.save();ctx.globalAlpha=Math.min(1,lifeRatio*2);
+    ctx.shadowColor='#aabbff';ctx.shadowBlur=14;
+    // Small winged paddle shape
+    ctx.fillStyle='rgba(200,215,255,0.9)';
+    ctx.beginPath();ctx.roundRect(b.x-b.r,b.y-b.r*0.5,b.r*2,b.r,4);ctx.fill();
+    // tiny wings
+    ctx.fillStyle='rgba(200,215,255,0.5)';
+    ctx.beginPath();ctx.ellipse(b.x-b.r-4,b.y,5,3,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(b.x+b.r+4,b.y,5,3,0,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  });
+}
+
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Angelic canvas background rays
+  if(impossibleMode){
+    const t=Date.now()*0.0008;
+    const cx=canvas.width/2,cy=canvas.height/2;
+    for(let i=0;i<8;i++){
+      const angle=t+i*(Math.PI/4);
+      const grad=ctx.createLinearGradient(cx,cy,cx+Math.cos(angle)*canvas.width,cy+Math.sin(angle)*canvas.height);
+      grad.addColorStop(0,'rgba(200,215,255,0.06)');
+      grad.addColorStop(1,'rgba(200,215,255,0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath();ctx.moveTo(cx,cy);
+      ctx.lineTo(cx+Math.cos(angle-0.15)*canvas.width*1.5,cy+Math.sin(angle-0.15)*canvas.height*1.5);
+      ctx.lineTo(cx+Math.cos(angle+0.15)*canvas.width*1.5,cy+Math.sin(angle+0.15)*canvas.height*1.5);
+      ctx.closePath();ctx.fill();
+    }
+  }
 
   // Blind overlays
   if(effects.p1.blinded){ctx.fillStyle='rgba(0,0,0,0.85)';ctx.fillRect(0,0,canvas.width/2,canvas.height);}
   if(effects.p2.blinded){ctx.fillStyle='rgba(0,0,0,0.85)';ctx.fillRect(canvas.width/2,0,canvas.width/2,canvas.height);}
 
   // Net
-  ctx.setLineDash([10,14]);ctx.strokeStyle=cssVar('--net-color');ctx.lineWidth=3;
+  ctx.setLineDash([10,14]);
+  ctx.strokeStyle=impossibleMode?`rgba(150,180,255,${0.4+Math.sin(Date.now()*0.003)*0.2})`:cssVar('--net-color');
+  ctx.lineWidth=3;
   ctx.beginPath();ctx.moveTo(canvas.width/2,0);ctx.lineTo(canvas.width/2,canvas.height);ctx.stroke();
   ctx.setLineDash([]);
 
   // Scores
-  const scoreKeys=bossMode?['p1','p2','boss']:['p1','p2'];
-  if(!bossMode){
+  if(!bossMode&&!impossibleMode){
     ['p1','p2'].forEach((p,i)=>{
       const sx=i===0?canvas.width/4:canvas.width*3/4;
       const sc=state.scores[p];
@@ -767,6 +1076,12 @@ function draw(){
     });
     ctx.font='10px '+cssVar('--ui-font');ctx.globalAlpha=0.4;ctx.fillStyle=cssVar('--score-color');ctx.textAlign='center';
     ctx.fillText('P1',canvas.width/4,90);ctx.fillText('P2',canvas.width*3/4,90);ctx.globalAlpha=1;
+  } else if(impossibleMode){
+    ctx.font='bold 28px '+cssVar('--ui-font');ctx.textAlign='center';
+    ctx.fillStyle='#4466cc';ctx.shadowColor='#aabbff';ctx.shadowBlur=10;
+    ctx.fillText('P1: '+(state.scores.p1||0),canvas.width/3,50);
+    ctx.fillStyle='#7788cc';ctx.shadowColor='#aabbff';ctx.shadowBlur=10;
+    ctx.fillText('☩ANGEL: '+(state.scores.boss||0),canvas.width*2/3,50);ctx.shadowBlur=0;
   } else {
     // Boss mode scores
     ctx.font='bold 32px '+cssVar('--ui-font');ctx.textAlign='center';ctx.fillStyle='#c0a060';
@@ -791,15 +1106,24 @@ function draw(){
   drawPowerups();
 
   // Paddles
-  drawPaddle(p1.x,p1.y,p1.w,p1.h,custom.p1Color,custom.p1Shape,effects.p1.blinded);
-  if(!bossMode)drawPaddle(p2.x,p2.y,p2.w,p2.h,custom.p2Color,custom.p2Shape,effects.p2.blinded);
+  drawPaddle(p1.x,p1.y,p1.w,p1.h,impossibleMode?'#7799ff':custom.p1Color,custom.p1Shape,effects.p1.blinded);
+  if(!bossMode&&!impossibleMode)drawPaddle(p2.x,p2.y,p2.w,p2.h,custom.p2Color,custom.p2Shape,effects.p2.blinded);
 
-  // Boss
+  // Boss / Angel Boss
   drawBoss();
+  drawAngelBoss();
 
-  // Ball
-  ctx.shadowColor=custom.ballColor;ctx.shadowBlur=12;
-  ctx.fillStyle=custom.ballColor;
+  // Ball — holy glow in impossible mode
+  if(impossibleMode){
+    const t=Date.now()*0.004;
+    ctx.shadowColor='#aabbff';ctx.shadowBlur=18+Math.sin(t)*6;
+    const bg=ctx.createRadialGradient(ball.x,ball.y,0,ball.x,ball.y,ball.r);
+    bg.addColorStop(0,'#ffffff');bg.addColorStop(0.5,'#c0d0ff');bg.addColorStop(1,'rgba(150,180,255,0)');
+    ctx.fillStyle=bg;
+  } else {
+    ctx.shadowColor=custom.ballColor;ctx.shadowBlur=12;
+    ctx.fillStyle=custom.ballColor;
+  }
   ctx.beginPath();ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2);ctx.fill();
   ctx.shadowBlur=0;
 
@@ -813,8 +1137,10 @@ function draw(){
 
   // Pause overlay
   if(state.paused){
-    ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle=cssVar('--score-color');ctx.font='bold 32px '+cssVar('--ui-font');ctx.textAlign='center';
+    ctx.fillStyle=impossibleMode?'rgba(200,210,255,0.4)':'rgba(0,0,0,0.5)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle=impossibleMode?'#4466cc':cssVar('--score-color');
+    ctx.font='bold 32px '+cssVar('--ui-font');ctx.textAlign='center';
     ctx.fillText('PAUSED',canvas.width/2,canvas.height/2);
     ctx.font='14px '+cssVar('--ui-font');
     ctx.fillText('Press SPACE to resume',canvas.width/2,canvas.height/2+36);
@@ -850,7 +1176,7 @@ function drawEffectIndicators(){
 let animId=null;
 function loop(){
   if(!state.paused){
-    movePaddles();moveBall();moveBoss();
+    movePaddles();moveBall();moveBoss();moveAngelBoss();
     updateScorePops();tickAbilities();tickPowerups();animateAscii();
   }
   draw();animId=requestAnimationFrame(loop);
@@ -860,14 +1186,72 @@ function loop(){
    BOSS MODE
 ═══════════════════════════════════ */
 function enterBossMode(){
-  bossMode=true;
+  bossMode=true;impossibleMode=false;
   document.getElementById('boss-side').style.display='flex';
+  document.getElementById('angel-boss-side').style.display='none';
   document.getElementById('ascii-right').style.display='none';
   boss.init();updateBossHp();
-  // resize p2 to be on left side too (coop)
   p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width-boss.w-20;
   resetGame();
   notify('⚠ BOSS MODE ACTIVATED! TEAM UP!');
+}
+
+/* ═══════════════════════════════════
+   IMPOSSIBLE MODE
+═══════════════════════════════════ */
+function enterImpossibleMode(){
+  // White fade in
+  const fade=document.getElementById('white-fade');
+  fade.style.opacity='1';
+
+  setTimeout(()=>{
+    // Switch to angelic theme
+    impossibleMode=true;bossMode=false;
+    document.body.classList.add('angelic');
+    canvas.classList.add('angelic-canvas');
+    document.getElementById('fireCanvas').style.display='none';
+    document.getElementById('holyCanvas').style.display='block';
+    document.getElementById('boss-side').style.display='none';
+    document.getElementById('angel-boss-side').style.display='flex';
+    document.getElementById('ascii-right').style.display='none';
+    document.getElementById('revert-btn').style.display='inline-block';
+    document.getElementById('boss-btn').style.display='none';
+    document.getElementById('impossible-btn').style.display='none';
+    // Update canvas background
+    document.documentElement.style.setProperty('--court-color','#f0f4ff');
+    document.documentElement.style.setProperty('--net-color','rgba(100,150,255,0.4)');
+    angelBoss.init();updateAngelBossHp();
+    resetGame();
+
+    // Fade back out
+    setTimeout(()=>{
+      fade.style.opacity='0';
+      // Show the announcement
+      const eot=document.getElementById('end-of-times');
+      eot.style.opacity='1';
+      setTimeout(()=>{eot.style.opacity='0';},3500);
+      notify('☩ IMPOSSIBLE PONG — THE END OF TIMES IS COMING! ☩');
+    },400);
+  },800);
+}
+
+function revertToNormal(){
+  impossibleMode=false;bossMode=false;
+  document.body.classList.remove('angelic');
+  canvas.classList.remove('angelic-canvas');
+  document.getElementById('fireCanvas').style.display='block';
+  document.getElementById('holyCanvas').style.display='none';
+  document.getElementById('boss-side').style.display='none';
+  document.getElementById('angel-boss-side').style.display='none';
+  document.getElementById('ascii-right').style.display='flex';
+  document.getElementById('revert-btn').style.display='none';
+  document.getElementById('boss-btn').style.display='inline-block';
+  document.getElementById('impossible-btn').style.display='inline-block';
+  document.documentElement.style.setProperty('--court-color','#200008');
+  document.documentElement.style.setProperty('--net-color','#6b0018');
+  effects.p1.frozen=false;effects.p1.petrified=false;
+  p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
+  resetGame();
 }
 
 /* ═══════════════════════════════════
@@ -876,8 +1260,8 @@ function enterBossMode(){
 function startGame(){
   state.running=true;state.paused=false;state.gameOver=false;
   message.textContent='';
-  effects.p1={spikeNext:false,shieldNext:false,reversed:false,blinded:false};
-  effects.p2={spikeNext:false,shieldNext:false,reversed:false,blinded:false};
+  effects.p1={spikeNext:false,shieldNext:false,reversed:false,blinded:false,frozen:false,petrified:false};
+  effects.p2={spikeNext:false,shieldNext:false,reversed:false,blinded:false,frozen:false,petrified:false};
   effects.waveSpin=0;effects.grabbed=false;effects.magnetOwner=null;
   ball.reset(Math.random()<0.5);loop();
 }
@@ -887,11 +1271,28 @@ function endGame(winner){
   if(winner==='boss'){
     showBurnScreen('BOTH PLAYERS','YOU BOTH GOT EATEN BY THE PONG MONSTER');
   } else if(winner==='players'){
-    message.textContent='🏆 PLAYERS WIN! BOSS DEFEATED! Press SPACE to play again.';
-    bossMode=false;
-    document.getElementById('boss-side').style.display='none';
-    document.getElementById('ascii-right').style.display='flex';
-    p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
+    if(impossibleMode){
+      message.textContent='🕊 YOU DEFEATED THE ANGEL! MIRACLE! Press SPACE to play again.';
+      impossibleMode=false;
+      document.body.classList.remove('angelic');
+      canvas.classList.remove('angelic-canvas');
+      document.getElementById('fireCanvas').style.display='block';
+      document.getElementById('holyCanvas').style.display='none';
+      document.getElementById('angel-boss-side').style.display='none';
+      document.getElementById('ascii-right').style.display='flex';
+      document.getElementById('revert-btn').style.display='none';
+      document.getElementById('boss-btn').style.display='inline-block';
+      document.getElementById('impossible-btn').style.display='inline-block';
+      document.documentElement.style.setProperty('--court-color','#200008');
+      document.documentElement.style.setProperty('--net-color','#6b0018');
+      p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
+    } else {
+      message.textContent='🏆 PLAYERS WIN! BOSS DEFEATED! Press SPACE to play again.';
+      bossMode=false;
+      document.getElementById('boss-side').style.display='none';
+      document.getElementById('ascii-right').style.display='flex';
+      p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
+    }
   } else {
     const loser=winner==='p1'?'PLAYER 2':'PLAYER 1';
     showBurnScreen(loser, loser+' YOU LOST THEREFORE YOU BURN!');
@@ -904,12 +1305,13 @@ function resetGame(){
   scorePops.length=0;powerups=[];pwSpawnTimer=0;pwEffects.p1={diamond:false,apple:0,battery:0};pwEffects.p2={diamond:false,apple:0,battery:0};
   document.getElementById('p1-pw-status').textContent='';document.getElementById('p2-pw-status').textContent='';
   if(bossMode)boss.init();
+  if(impossibleMode)angelBoss.init();
   resetPaddles();ball.reset(true);message.textContent='';startGame();
 }
 function resetPaddles(){
   p1.y=canvas.height/2-p1.h/2;
-  if(!bossMode){p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;}
-  else{p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width-boss.w-20;}
+  if(!bossMode&&!impossibleMode){p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;}
+  else if(bossMode){p2.y=canvas.height/2-p2.h/2;p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width-boss.w-20;}
   p1.dy=0;p2.dy=0;p1.h=SETTINGS.paddle.height;p2.h=SETTINGS.paddle.height;
 }
 
@@ -948,9 +1350,20 @@ function showBurnScreen(loserName,subText){
 function closeBurnScreen(){
   burnScreen.classList.remove('active');
   if(burnAnimId)cancelAnimationFrame(burnAnimId);
-  bossMode=false;
+  bossMode=false;impossibleMode=false;
+  document.body.classList.remove('angelic');
+  canvas.classList.remove('angelic-canvas');
+  document.getElementById('fireCanvas').style.display='block';
+  document.getElementById('holyCanvas').style.display='none';
   document.getElementById('boss-side').style.display='none';
+  document.getElementById('angel-boss-side').style.display='none';
   document.getElementById('ascii-right').style.display='flex';
+  document.getElementById('revert-btn').style.display='none';
+  document.getElementById('boss-btn').style.display='inline-block';
+  document.getElementById('impossible-btn').style.display='inline-block';
+  document.documentElement.style.setProperty('--court-color','#200008');
+  document.documentElement.style.setProperty('--net-color','#6b0018');
+  effects.p1.frozen=false;effects.p1.petrified=false;
   p2.x=canvas.width-SETTINGS.paddle.margin-SETTINGS.paddle.width;
   resetGame();
 }
@@ -1047,6 +1460,12 @@ function triggerAsciiReact(scorer){
   asciiSt[scorer].reactTimer=90;asciiSt[scorer].isCheer=true;
   asciiSt[loser].reactTimer=90;asciiSt[loser].isCheer=false;
 }
+const ANGEL_BOSS_ASCII_FRAMES=[
+  ['  ✦✦✦✦✦  ','  )))✝((( ','✦( ◉  ◉ )✦','  )))✝((( ','  |ANGEL| ','  | BOSS| ','  |☩☩☩☩| ','   \\___/  ','   |   |  ','  /|   |\\ '],
+  ['  ✦✦✦✦✦  ','  )))✝((( ','✦( ◎  ◎ )✦','  )))✝((( ','  |ANGEL| ','  | BOSS| ','  |✦✦✦✦| ','   \\___/  ','   |   |  ','  /|   |\\ '],
+  ['  ✦✦✦✦✦  ','  )))✝((( ','✦( ✦  ✦ )✦','  )))✝((( ','  |ANGEL| ','  | RAGE| ','  |!!!!!!| ','   \\___/  ','   |   |  ','  /|   |\\ '],
+];
+
 function animateAscii(){
   asciiTick++;
   // Boss ascii animation
@@ -1054,6 +1473,15 @@ function animateAscii(){
     const fi=boss.rageMode?2:asciiTick%60<30?0:1;
     bossAsciiEl.textContent=BOSS_ASCII_FRAMES[fi].join('\n');
     bossAsciiEl.style.transform=boss.rageMode?`translateY(${Math.sin(asciiTick*0.5)*5}px) scale(1.06)`:'';
+  }
+  // Angel boss ascii animation
+  if(impossibleMode){
+    const angelEl=document.getElementById('angel-boss-ascii');
+    const fi=angelBoss.rageMode?2:asciiTick%60<30?0:1;
+    angelEl.textContent=ANGEL_BOSS_ASCII_FRAMES[fi].join('\n');
+    const wave=`translateY(${Math.sin(asciiTick*0.04)*4}px)`;
+    angelEl.style.transform=angelBoss.electrifyTimer>0?wave+' scale(1.05)':wave;
+    angelEl.style.color=angelBoss.electrifyTimer>0?'#8899ff':'#4466cc';
   }
   ['p1','p2'].forEach(pl=>{
     const st=asciiSt[pl];const el=pl==='p1'?asciiP1:asciiP2;const pad=pl==='p1'?p1:p2;
@@ -1122,6 +1550,63 @@ updateAbBadge('p1');updateAbBadge('p2');
     }
   }
   (function tick(){step();drawF();requestAnimationFrame(tick);})();
+})();
+
+/* ═══════════════════════════════════
+   HOLY LIGHT (bottom)
+═══════════════════════════════════ */
+(function initHoly(){
+  const hc=document.getElementById('holyCanvas');
+  const hctx=hc.getContext('2d');
+  const W=hc.width,H=hc.height;
+  const particles=[];
+  for(let i=0;i<60;i++){
+    particles.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.4,vy:-0.3-Math.random()*0.5,r:1+Math.random()*2,alpha:Math.random(),life:Math.random()});
+  }
+  (function tick(){
+    hctx.clearRect(0,0,W,H);
+    // Gradient glow base
+    const grd=hctx.createLinearGradient(0,H,0,0);
+    grd.addColorStop(0,'rgba(180,200,255,0.25)');
+    grd.addColorStop(0.5,'rgba(200,215,255,0.08)');
+    grd.addColorStop(1,'rgba(200,215,255,0)');
+    hctx.fillStyle=grd;hctx.fillRect(0,0,W,H);
+    // Light rays
+    const t=Date.now()*0.0006;
+    for(let i=0;i<6;i++){
+      const rx=W/2+Math.sin(t+i*1.05)*W*0.4;
+      hctx.save();
+      hctx.globalAlpha=0.06+Math.sin(t*1.5+i)*0.04;
+      const rg=hctx.createLinearGradient(rx,H,W/2,0);
+      rg.addColorStop(0,'rgba(180,200,255,0.8)');
+      rg.addColorStop(1,'rgba(255,255,255,0)');
+      hctx.fillStyle=rg;
+      hctx.beginPath();hctx.moveTo(W/2,0);hctx.lineTo(rx-20,H);hctx.lineTo(rx+20,H);hctx.closePath();
+      hctx.fill();hctx.restore();
+    }
+    // Floating holy particles
+    particles.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.life+=0.01;p.alpha=0.4+Math.sin(p.life*3)*0.4;
+      if(p.y<-5){p.y=H+5;p.x=Math.random()*W;}
+      hctx.beginPath();
+      hctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      hctx.fillStyle=`rgba(200,215,255,${p.alpha})`;
+      hctx.shadowColor='#aabbff';hctx.shadowBlur=8;
+      hctx.fill();hctx.shadowBlur=0;
+    });
+    // Cross sparkles
+    for(let i=0;i<3;i++){
+      const cx=W*0.2+i*W*0.3;
+      const cy=H*0.5+Math.sin(t*0.8+i*2.1)*H*0.3;
+      const sz=3+Math.sin(t+i)*1.5;
+      hctx.globalAlpha=0.3+Math.sin(t*2+i)*0.2;
+      hctx.strokeStyle='rgba(180,200,255,0.9)';hctx.lineWidth=1;
+      hctx.beginPath();hctx.moveTo(cx,cy-sz);hctx.lineTo(cx,cy+sz);hctx.stroke();
+      hctx.beginPath();hctx.moveTo(cx-sz,cy);hctx.lineTo(cx+sz,cy);hctx.stroke();
+      hctx.globalAlpha=1;
+    }
+    requestAnimationFrame(tick);
+  })();
 })();
 
 /* ═══════════════════════════════════
